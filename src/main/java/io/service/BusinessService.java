@@ -387,7 +387,7 @@ public class BusinessService {
         setData(id, data);
 
         try {
-            Address.create(addressHash);
+            Address.createAndVerify(addressHash);
         }catch (com.easypost.exception.EasyPostException e) {
             data.set("message", "Address aint right! Please make sure you enter a valid business address.");
             data.set("page", "/pages/business/settings.jsp");

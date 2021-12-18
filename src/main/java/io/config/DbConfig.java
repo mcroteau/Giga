@@ -23,25 +23,25 @@ public class DbConfig {
     @Property("db.driver")
     String driver;
 
-//    @Dependency
-//    public DataSource dataSource(){
-//        return new Papi.New()
-//                .connections(20)
-//                .driver(driver)
-//                .url(url)
-//                .user(user)
-//                .password(pass)
-//                .make();
-//    }
-
     @Dependency
     public DataSource dataSource(){
-        return new BasicDataSource.Builder()
+        return new Papi.New()
+                .connections(20)
                 .driver(driver)
                 .url(url)
-                .username(user)
+                .user(user)
                 .password(pass)
-                .build();
+                .make();
     }
+
+//    @Dependency
+//    public DataSource dataSource(){
+//        return new BasicDataSource.Builder()
+//                .driver(driver)
+//                .url(url)
+//                .username(user)
+//                .password(pass)
+//                .build();
+//    }
 
 }

@@ -80,6 +80,7 @@ public class StartupService {
         Role savedBusinessRole = roleRepo.get(Giga.BUSINESS_ROLE);
         Role savedCustomerRole = roleRepo.get(Giga.CUSTOMER_ROLE);
 
+        mock(password, savedCustomerRole, savedBusinessRole);
     }
 
     protected void mock(String password, Role savedCustomerRole, Role savedBusinessRole){
@@ -123,49 +124,49 @@ public class StartupService {
 
 
         Business business = new Business();
-        business.setName("IBM");
-        business.setUri("ibm");
+        business.setName("Kopi Nuwak Distributors");
+        business.setUri("kopi");
         business.setUserId(savedIbmUser.getId());
         businessRepo.save(business);
-        Business savedIbm = businessRepo.getSaved();
+        Business savedKopi = businessRepo.getSaved();
 
-        savedIbm.setPhone("9079878652");
-        savedIbm.setStreet("1 New Orchard Road");
-        savedIbm.setStreetDos("");
-        savedIbm.setCity("Armonk");
-        savedIbm.setState("New York");
-        savedIbm.setZip("10504-1722");
-        savedIbm.setCountry("US");
-        savedIbm.setActivationComplete(true);
-        savedIbm.setBaseCommission(new BigDecimal(14));
-        savedIbm.setStripeId("acct_1Juk6N2HqO73ZqT6");
-        businessRepo.update(savedIbm);
+        savedKopi.setPhone("9079878652");
+        savedKopi.setStreet("1 New Orchard Road");
+        savedKopi.setStreetDos("");
+        savedKopi.setCity("Armonk");
+        savedKopi.setState("New York");
+        savedKopi.setZip("10504-1722");
+        savedKopi.setCountry("US");
+        savedKopi.setActivationComplete(true);
+        savedKopi.setBaseCommission(new BigDecimal(14));
+        savedKopi.setStripeId("acct_1Juk6N2HqO73ZqT6");
+        businessRepo.update(savedKopi);
 
-        String ibmPermission = Giga.BUSINESS_MAINTENANCE + savedIbm.getId();
+        String ibmPermission = Giga.BUSINESS_MAINTENANCE + savedKopi.getId();
         userRepo.savePermission(savedIbmUser.getId(), ibmPermission);
         try {
-            businessService.configure(savedIbm, true);
+            businessService.configure(savedKopi, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        UserBusiness userBusinessIbm = new UserBusiness(savedIbmUser.getId(), savedIbm.getId());
+        UserBusiness userBusinessIbm = new UserBusiness(savedIbmUser.getId(), savedKopi.getId());
         businessRepo.saveUser(userBusinessIbm);
 
-        UserBusiness userBusinessPatron = new UserBusiness(savedPatron.getId(), savedIbm.getId());
+        UserBusiness userBusinessPatron = new UserBusiness(savedPatron.getId(), savedKopi.getId());
         businessRepo.saveUser(userBusinessPatron);
 
         userRepo.update(savedIbmUser);
 
-        Category mensCategory = saveCategory("Shop", savedIbm.getId(), null, savedIbmUser);
-        Category clothingCategory = saveCategory("Clothing", savedIbm.getId(), mensCategory.getId(), savedIbmUser);
-        Category shoesCategory = saveCategory("Shoes", savedIbm.getId(), clothingCategory.getId(), savedIbmUser);
+        Category mensCategory = saveCategory("Shop", savedKopi.getId(), null, savedIbmUser);
+        Category clothingCategory = saveCategory("Clothing", savedKopi.getId(), mensCategory.getId(), savedIbmUser);
+        Category shoesCategory = saveCategory("Shoes", savedKopi.getId(), clothingCategory.getId(), savedIbmUser);
 
         for(int k = 0; k < 91; k++) {
             Item item = new Item();
             item.setDesignId(designRepo.getSaved().getId());
-            item.setBusinessId(savedIbm.getId());
+            item.setBusinessId(savedKopi.getId());
             item.setName("Giga Item " + Giga.getString(4));
             item.setImageUri(Giga.OCEAN_ENDPOINT + Giga.ITEM_IMAGE);
             item.setPrice(new BigDecimal(45));
@@ -179,13 +180,13 @@ public class StartupService {
             String itemPermission = Giga.ITEM_MAINTENANCE + savedItem.getId();
             userRepo.savePermission(savedIbmUser.getId(), itemPermission);
 
-            CategoryItem categoryItem = new CategoryItem(savedItem.getId(), mensCategory.getId(), savedIbm.getId());
+            CategoryItem categoryItem = new CategoryItem(savedItem.getId(), mensCategory.getId(), savedKopi.getId());
             categoryRepo.saveItem(categoryItem);
 
-            CategoryItem categoryItemDos = new CategoryItem(savedItem.getId(), clothingCategory.getId(), savedIbm.getId());
+            CategoryItem categoryItemDos = new CategoryItem(savedItem.getId(), clothingCategory.getId(), savedKopi.getId());
             categoryRepo.saveItem(categoryItemDos);
 
-            CategoryItem categoryItemTres = new CategoryItem(savedItem.getId(), shoesCategory.getId(), savedIbm.getId());
+            CategoryItem categoryItemTres = new CategoryItem(savedItem.getId(), shoesCategory.getId(), savedKopi.getId());
             categoryRepo.saveItem(categoryItemTres);
 
             ItemOption itemOption = new ItemOption();
@@ -216,7 +217,7 @@ public class StartupService {
             Cart cart = new Cart();
             cart.setUserId(savedIbmUser.getId());
             cart.setActive(true);
-            cart.setBusinessId(savedIbm.getId());
+            cart.setBusinessId(savedKopi.getId());
             cartRepo.save(cart);
 
             Cart savedCart = cartRepo.getSaved();
@@ -226,7 +227,7 @@ public class StartupService {
             cartItem.setPrice(savedItem.getPrice());
             cartItem.setQuantity(new BigDecimal(Giga.getNumber(4)));
             cartItem.setCartId(savedCart.getId());
-            cartItem.setBusinessId(savedIbm.getId());
+            cartItem.setBusinessId(savedKopi.getId());
             cartRepo.saveItem(cartItem);
 
             CartItem savedCartItem = cartRepo.getSavedItem();
@@ -263,7 +264,7 @@ public class StartupService {
 
                 Sale savedSale = saleRepo.getSaved();
 
-                savedSale.setPrimaryId(savedIbm.getId());
+                savedSale.setPrimaryId(savedKopi.getId());
 
                 savedSale.setApplicationFee(Long.valueOf(3));
                 savedSale.setPrimaryAmount(savedSale.getAmount().movePointRight(2).longValueExact());
@@ -300,7 +301,7 @@ public class StartupService {
         savedImDone.setActivationComplete(true);
         savedImDone.setAffiliate(true);
         savedImDone.setOwner("Zink");
-        savedImDone.setPrimaryId(savedIbm.getId());
+        savedImDone.setPrimaryId(savedKopi.getId());
         savedImDone.setBaseCommission(new BigDecimal(13));
         savedImDone.setStripeId("acct_1K0gwt2HGj2rN0Zk");
 
@@ -355,7 +356,7 @@ public class StartupService {
 
         BusinessRequest businessRequest = new BusinessRequest();
         businessRequest.setEmail("croteau.mike+ioc@gmail.com");
-        businessRequest.setBusinessId(savedIbm.getId());
+        businessRequest.setBusinessId(savedKopi.getId());
         businessRequest.setBusinessName("IOC");
         businessRequest.setGuid(Giga.getString(6));
         businessRequest.setName("Mike");

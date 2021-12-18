@@ -36,7 +36,7 @@
                         <br/><span class="tiny">Affiliate Commission : $${sale.convert(sale.affiliateAmount)}</span>
                     </c:if>
                     <br/><span class="tiny">Primary Amount : $${sale.convert(sale.primaryAmount)}</span>
-                    <br/><span class="tiny">Application Fee : $${sale.convert(sale.applicationFee)}</span>
+                    <br/><span class="tiny">Your Application Fee : $${sale.convert(sale.applicationFee)}</span>
                 </td>
                 <td style="padding:0px !important">
                     <table>
@@ -53,27 +53,27 @@
                                 <td>${cartItem.item.name}
                                     <c:forEach items="${cartItem.cartOptions}" var="cartOption">
                                         <br/>
-                                        <span class="information">${cartOption.itemOption.name}  ${cartOption.optionValue.value} @ +$${siteService.getPrice(cartOption.optionValue.price)}</span>
+                                        <span class="information">${cartOption.itemOption.name}  ${cartOption.optionValue.value} @ +$${siteService.getPriceDos(cartOption.optionValue.price)}</span>
                                     </c:forEach>
                                 </td>
                                 <td>${cartItem.quantity}</td>
-                                <td>$${siteService.getPrice(cartItem.item.price)}</td>
-                                <td>$${siteService.getPrice(cartItem.itemTotal)}</td>
+                                <td>$${siteService.getPriceDos(cartItem.item.price)}</td>
+                                <td>$${siteService.getPriceDos(cartItem.itemTotal)}</td>
                             </tr>
                         </c:forEach>
                         <tr>
                             <td colspan="4">Sub Total:</td>
-                            <td>${siteService.getPrice(sale.cart.subtotal)}</td>
+                            <td>${siteService.getPriceDos(sale.cart.subtotal)}</td>
                         </tr>
                         <tr>
                             <td colspan="4">Shipping:</td>
                             <td>
-                                $${siteService.getPrice(sale.cart.shipping)}
+                                $${siteService.getPriceDos(sale.cart.shipping)}
                             </td>
                         </tr>
                         <tr>
                             <td colspan="4">Total:</td>
-                            <td>$${siteService.getPrice(sale.amount)}</td>
+                            <td>$${siteService.getPriceDos(sale.amount)}</td>
                         </tr>
                     </table>
                 </td>
