@@ -3,7 +3,7 @@
 
 ### Run Me.
 
-```./mvnw package jetty:run```
+```mvn package jetty:run```
 
 then browse to : 
 
