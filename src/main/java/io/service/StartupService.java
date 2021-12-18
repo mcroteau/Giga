@@ -75,7 +75,7 @@ public class StartupService {
             customerRole.setName(Giga.CUSTOMER_ROLE);
             roleRepo.save(customerRole);
         }
-        
+
 
         Role savedBusinessRole = roleRepo.get(Giga.BUSINESS_ROLE);
         Role savedCustomerRole = roleRepo.get(Giga.CUSTOMER_ROLE);
