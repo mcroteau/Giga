@@ -75,17 +75,7 @@ public class StartupService {
             customerRole.setName(Giga.CUSTOMER_ROLE);
             roleRepo.save(customerRole);
         }
-
-
-        User existingSuper = userRepo.get(Giga.SUPER);
-        if(existingSuper == null){
-            User superUser = new User();
-            superUser.setPhone("9079878652");
-            superUser.setUsername(Giga.SUPER);
-            superUser.setPassword(password);
-            superUser.setDateJoined(Giga.getDate());
-            userRepo.saveAdministrator(superUser);
-        }
+        
 
         Role savedBusinessRole = roleRepo.get(Giga.BUSINESS_ROLE);
         Role savedCustomerRole = roleRepo.get(Giga.CUSTOMER_ROLE);
