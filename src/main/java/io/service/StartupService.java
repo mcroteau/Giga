@@ -80,7 +80,6 @@ public class StartupService {
         Role savedBusinessRole = roleRepo.get(Giga.BUSINESS_ROLE);
         Role savedCustomerRole = roleRepo.get(Giga.CUSTOMER_ROLE);
 
-        mock(password, savedCustomerRole, savedBusinessRole);
     }
 
     protected void mock(String password, Role savedCustomerRole, Role savedBusinessRole){
