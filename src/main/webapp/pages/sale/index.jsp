@@ -54,7 +54,6 @@ ${siteService.getBaseBit(Giga.HEAD, design, business, request)}
     <div id="details" class="align-center">
         <br/>
         <input type="text" id="amount" value="${sale.amount}" disabled/>
-        <input type="text" id="application-fee" value="${sale.applicationFee}" disabled/>
         <input type="text" id="primary-amount" value="${sale.primaryAmount}" disabled/>
         <input type="text" id="affiliate-amount" value="${sale.affiliateAmount}" disabled/>
     </div>

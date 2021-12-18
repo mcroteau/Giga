@@ -40,6 +40,9 @@ ${siteService.getBaseBit(Giga.HEAD, design, business, request)}
         <label>Phone</label>
         <input type="text" name="phone" value="${cart.get(cart.shipPhone)}" id="ship-phone" style="width:40%;"/>
 
+        <label>Email</label>
+        <input type="text" name="username" value="${cart.get(cart.shipEmail)}" id="ship-email" style="width:40%;"/>
+
         <label>Street</label>
         <input type="text" name="shipStreet" value="${cart.get(cart.shipStreet)}" id="ship-street" style="width:70%;"/>
 

@@ -265,7 +265,6 @@ public class StartupService {
 
                 savedSale.setPrimaryId(savedKopi.getId());
 
-                savedSale.setApplicationFee(Long.valueOf(3));
                 savedSale.setPrimaryAmount(savedSale.getAmount().movePointRight(2).longValueExact());
                 savedSale.setStripePrimaryCustomerId("z_123");
                 savedSale.setStripePrimaryChargeId("z_921");

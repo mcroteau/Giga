@@ -64,21 +64,15 @@
 
 <div id="features-wrapper">
     <div id="features">
-<%--
-stuart planned out his future
-i got stuart money
-i got stuart more money $3,000,000
-i introduced him to a girl i was head over heals for
-he got jealous over the attention and what i was going to get
-so he toned it down by 90%. replanned my future. so i removed his future... he should be planning his own future inside anyways.
-thats when he through a fit and started fucking every girl i knew inside while on the clock.
-i guess stuart is ok.
---%>
-
 
         <h1>Features</h1>
 
+        <p>Customize this as your Homepage, *affiliate registration requires at
+            least one entity to be registered with this application. What you get with Giga:</p>
+
         <p><strong>Multi-Business</strong> One or many shops, you decide. Running multiple shops at once on Giga is a breeze.</p>
+
+        <p><strong>Resellers Logic</strong> That's right, with Giga, you can allow your companies to operate as affiliates.</p>
 
         <p><strong>Multi-Design</strong> Completely customizable designs, and to boot Giga boasts a design per page, item and category.</p>
 
@@ -105,14 +99,14 @@ i guess stuart is ok.
             <a href="${pageContext.request.contextPath}/signup" class="button yellow gigantic">Get Started as a Business!</a>
         </div>
 
-
     </div>
 </div>
 
 <div id="friends-wrapper">
     <div id="friends" class="section">
         <h1>Business<br/>Partner Program</h1>
-        <p><strong>Say what? Business Partners?</strong>
+        <p>This could be your blurb...
+            <strong>Say what? Business Partners?</strong>
             Better yet, friends program,
             if you like them so much why don't
             you marry em'.
@@ -120,6 +114,8 @@ i guess stuart is ok.
             or a product you are excited about and create an online
             store their behalf. You get a copy of all of their items &
             categories and set pricing on demand.</p>
+
+        <p>*Yes we are giving this ability away for free.</p>
 
         <p>As a business owner get excited about the idea of having
             people work on your behalf, we tried to make it as easy as possible
@@ -145,53 +141,4 @@ i guess stuart is ok.
         <a href="${pageContext.request.contextPath}/affiliates/onboarding" class="button green gigantic">Get Started Now!</a>
     </div>
 </div>
-
-<style>
-    #costs-wrapper{background:#FEF57A;text-align: center}
-    #costs{background:#FEF57A;text-align: center;margin:auto;padding:30px 0px 70px 0px;width:760px;}
-    #costs p{font-weight: 400}
-    p.lightf{font-weight: 300 !important; width:400px;margin:auto;}
-</style>
-
-<div id="costs-wrapper">
-    <div id="costs" class="section">
-        <h1>Pricing</h1>
-        <h1>4.21% of sales</h1>
-        <p>42 cents on a $10 purchase!</p>
-        <p class="lightf">
-            Nothing more. No Monthly fees.<br/>
-            You make money, we make money.
-            We hope you enjoy!
-        </p>
-        <div class="align-center" style="margin:30px 0px 60px">
-            <a href="${pageContext.request.contextPath}/signup" class="button light gigantic">Get Started as a Business!</a>
-        </div>
-    </div>
-</div>
-
-<%--<style>--%>
-<%--    #shop-wrapper{text-align: center}--%>
-<%--    #shop{width:760px;margin:20px auto 170px;}--%>
-<%--</style>--%>
-<%----%>
-<%--<c:if test="${businesses.size() > 0}">--%>
-<%--    <div id="shop-wrapper">--%>
-<%--        <div id="shop">--%>
-<%--            <h1>Shop <br/>Giga Shops!</h1>--%>
-<%--            <p>The list below are all the shops on our platform.</p>--%>
-<%--            <select id="businesses">--%>
-<%--                <c:forEach items="${businesses}" var="business">--%>
-<%--                    <option value="${business.uri}">${business.name}</option>--%>
-<%--                </c:forEach>--%>
-<%--            </select>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</c:if>--%>
-<%----%>
-<%--<script>--%>
-<%--    let select = document.getElementById("businesses")--%>
-<%--    select.addEventListener("change", function(){--%>
-<%--        window.location = "${pageContext.request.contextPath}/" + select.value--%>
-<%--    })--%>
-<%--</script>--%>
 

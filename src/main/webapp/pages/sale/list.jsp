@@ -32,11 +32,11 @@
                     <span class="tiny">Date: ${sale.prettyDate}</span>
 <%--                    <a href="${pageContext.request.contextPath}/sales/${business.id}/${sale.id}" class="button orange">Show Details</a>--%>
 
+                    <br/><span class="tiny">Primary Amount : $${sale.convert(sale.primaryAmount)}</span>
+
                     <c:if test="${sale.affiliateAmount != null}">
                         <br/><span class="tiny">Affiliate Commission : $${sale.convert(sale.affiliateAmount)}</span>
                     </c:if>
-                    <br/><span class="tiny">Primary Amount : $${sale.convert(sale.primaryAmount)}</span>
-                    <br/><span class="tiny">Your Application Fee : $${sale.convert(sale.applicationFee)}</span>
                 </td>
                 <td style="padding:0px !important">
                     <table>

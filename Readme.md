@@ -39,8 +39,7 @@ run it bare
 
 ## Todo:
 
-transfers
-shopping cart shipping info require email!
+already an account found
 reset password
 customer reset process
 my account to store front
@@ -63,7 +62,7 @@ sitemaps for item
 
 
 #### done
-
+shopping cart shipping info require email!
 
 
 ### H2 Allow for External Connections

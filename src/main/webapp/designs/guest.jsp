@@ -126,9 +126,8 @@
                     <a href="${pageContext.request.contextPath}/">Admin</a>&nbsp;
                 </chico:isAuthenticated>
                 <a href="${pageContext.request.contextPath}/home#features">Features</a>&nbsp;
-                <a href="${pageContext.request.contextPath}/home#friends">Friends*</a>&nbsp;
-                <a href="${pageContext.request.contextPath}/home#costs">Pricing</a>&nbsp;
-                <a href="${pageContext.request.contextPath}/signup" class="button orange">Signup!</a>
+                <a href="${pageContext.request.contextPath}/home#friends">Resellers*</a>&nbsp;
+                <a href="${pageContext.request.contextPath}/signup" class="button orange">Start Business!</a>
             </div>
         </div>
 

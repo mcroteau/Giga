@@ -23,11 +23,9 @@ easypost.key=
 ### stripe payments settings ###
 stripe.key=
 
-
 ### digital ocean settings ###
 digital.ocean.key=
 digital.ocean.secret=
-
 
 
 ### mail settings ###

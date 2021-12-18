@@ -69,11 +69,10 @@ public class SaleRepo {
 
 
     public boolean updatePrimary(Sale sale) {
-        String sql = "update sales set primary_id = [+], application_fee = [+],  primary_amount = [+],  " +
+        String sql = "update sales set primary_id = [+], primary_amount = [+],  " +
                 "stripe_primary_customer_id = '[+]', stripe_primary_charge_id = '[+]' where id = [+]";
         qio.update(sql, new Object[] {
                 sale.getPrimaryId(),
-                sale.getApplicationFee(),
                 sale.getPrimaryAmount(),
                 sale.getStripePrimaryCustomerId(),
                 sale.getStripePrimaryChargeId(),
@@ -83,13 +82,12 @@ public class SaleRepo {
     }
 
     public boolean updateAffiliate(Sale sale) {
-        String sql = "update sales set affiliate_id = [+], primary_id = [+], application_fee = [+], affiliate_amount = [+], primary_amount = [+],  " +
+        String sql = "update sales set affiliate_id = [+], primary_id = [+], affiliate_amount = [+], primary_amount = [+],  " +
                 "stripe_application_customer_id = '[+]', stripe_primary_customer_id = '[+]', " +
                 "stripe_application_charge_id = '[+]', stripe_primary_charge_id = '[+]' where id = [+]";
         qio.update(sql, new Object[] {
                 sale.getAffiliateId(),
                 sale.getPrimaryId(),
-                sale.getApplicationFee(),
                 sale.getAffiliateAmount(),
                 sale.getPrimaryAmount(),
                 sale.getStripeApplicationCustomerId(),

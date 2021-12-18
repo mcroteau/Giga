@@ -1,10 +1,13 @@
 package io.service;
 
 import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 import com.stripe.model.Token;
+import com.stripe.model.Transfer;
 import com.stripe.net.RequestOptions;
+import com.stripe.param.TransferCreateParams;
 import io.Giga;
 import io.model.*;
 import io.repo.*;
@@ -75,8 +78,6 @@ public class SaleService {
             return "[redirect]/" + businessUri + "/cart";
         }
 
-        System.out.println("set sale user ");
-
         Sale sale = new Sale();
         sale.setCartId(cart.getId());
         sale.setSalesDate(Giga.getDate());
@@ -117,12 +118,8 @@ public class SaleService {
             if (business.getAffiliate() == null ||
                     !business.getAffiliate()) {
 
-                BigDecimal applicationFeePre = chargeAmount.multiply(Giga.COMMISSION, new MathContext(3, RoundingMode.HALF_DOWN));
-                BigDecimal primarysAmountPre = chargeAmount.subtract(applicationFeePre);
-
-                Long primarysAmount = primarysAmountPre.movePointRight(2).longValueExact();
-                Long applicationFee = applicationFeePre.movePointRight(2).longValueExact();
-                System.out.println("fees ans shit " + applicationFee + ", " + primarysAmount);
+                Long primarysAmount = chargeAmount.movePointRight(2).longValueExact();
+                System.out.println("fees ans shit " + ", " + primarysAmount);
 
                 RequestOptions tokenRequestOptions = RequestOptions.builder()
                         .setStripeAccount(business.getStripeId())
@@ -146,14 +143,12 @@ public class SaleService {
                 chargeParams.put("customer", primaryCustomer.getId());
                 chargeParams.put("card", primarysToken.getCard().getId());
                 chargeParams.put("currency", "usd");
-                chargeParams.put("application_fee_amount", applicationFee);
 
                 RequestOptions primaryChargeRequestOptions = RequestOptions.builder().setStripeAccount(business.getStripeId()).build();
                 Charge charge = Charge.create(chargeParams, primaryChargeRequestOptions);
 
                 sale.setPrimaryId(business.getId());
                 sale.setStripePrimaryCustomerId(primaryCustomer.getId());
-                sale.setApplicationFee(applicationFee);
                 sale.setPrimaryAmount(primarysAmount);
                 sale.setStripePrimaryChargeId(charge.getId());
 
@@ -164,20 +159,17 @@ public class SaleService {
             if(business.getAffiliate() != null &&
                     business.getAffiliate()){
 
-                BigDecimal applicationFeePre = chargeAmount.multiply(Giga.COMMISSION, new MathContext(3, RoundingMode.HALF_DOWN));
-                BigDecimal applicationAmountPre = chargeAmount.subtract(applicationFeePre);
 
                 BigDecimal commissionRate = primaryBusiness.getBaseCommission().divide(new BigDecimal(100), 3, RoundingMode.HALF_UP);
-                BigDecimal affiliateAmountPre = applicationAmountPre.multiply(commissionRate, new MathContext(3, RoundingMode.HALF_DOWN));
-                BigDecimal primaryAmountPre = applicationAmountPre.subtract(affiliateAmountPre);
+                BigDecimal affiliateAmountPre = chargeAmount.multiply(commissionRate, new MathContext(3, RoundingMode.HALF_DOWN));
+                BigDecimal primaryAmountPre = chargeAmount.subtract(affiliateAmountPre);
 
                 System.out.println("fees ans shit! aa:" + affiliateAmountPre);
 
-                Long applicationFee = applicationFeePre.movePointRight(2).longValueExact();
                 Long affiliateAmount = affiliateAmountPre.movePointRight(2).longValueExact();
                 Long primaryAmount = primaryAmountPre.movePointRight(2).longValueExact();
 
-                System.out.println("fees ans shit! af:" + applicationFee + ", pa" + primaryAmount + ", aa" + affiliateAmount);
+                System.out.println("fees ans shit! pa" + primaryAmount + ", aa" + affiliateAmount);
 
                 Map<String, Object> chargeParamsDos = new HashMap<>();
                 chargeParamsDos.put("amount", affiliateAmount);
@@ -193,7 +185,7 @@ public class SaleService {
 
                 Token token = Token.create(cardParams, tokenRequestOptions);
                 Map<String, Object> customerParamsTres = new HashMap<>();
-                customerParamsTres.put("email", "croteau.mike+patron@gmail.com");
+                customerParamsTres.put("email", cart.getShipEmail());
                 customerParamsTres.put("source", token.getId());
 
 
@@ -208,17 +200,13 @@ public class SaleService {
                 chargeParams.put("customer", customerTres.getId());
                 chargeParams.put("card", token.getCard().getId());
                 chargeParams.put("currency", "usd");
-                chargeParams.put("application_fee_amount", applicationFee);
 
                 RequestOptions chargeRequestOptions = RequestOptions.builder().setStripeAccount(primaryBusiness.getStripeId()).build();
                 Charge.create(chargeParams, chargeRequestOptions);
 
 
-
-
                 sale.setPrimaryId(primaryBusiness.getId());
                 sale.setAffiliateId(business.getId());
-                sale.setApplicationFee(applicationFee);
                 sale.setAffiliateAmount(affiliateAmount);
                 sale.setPrimaryAmount(primaryAmount);
                 saleRepo.updateAffiliate(sale);
@@ -342,4 +330,5 @@ public class SaleService {
             sale.setCart(cart);
         }
     }
+
 }

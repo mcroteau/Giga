@@ -61,27 +61,4 @@ public class BasicHandler {
 		return "/designs/guest.jsp";
 	}
 
-
-//		TransferCreateParams businessTransferParams =
-//				TransferCreateParams.builder()
-//						.setAmount(4500L)
-//						.setCurrency("usd")
-//						.setDestination(businessId)
-//						.setTransferGroup("hope")
-//						.build();
-//
-//		Transfer.create(businessTransferParams);
-//
-//
-//
-//		TransferCreateParams resellerTransferParams =
-//				TransferCreateParams.builder()
-//						.setAmount(3500L)
-//						.setCurrency("usd")
-//						.setDestination(resellerId)
-//						.setTransferGroup("hope")
-//						.build();
-//
-//		Transfer.create(resellerTransferParams);
-
 }

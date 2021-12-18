@@ -6,10 +6,10 @@ import com.easypost.exception.EasyPostException;
 import com.easypost.model.Address;
 import com.easypost.model.Rate;
 import com.easypost.model.Shipment;
+import jakarta.servlet.http.HttpServletRequest;
 import io.Giga;
 import io.model.*;
 import io.repo.*;
-import jakarta.servlet.http.HttpServletRequest;
 import qio.Qio;
 import qio.annotate.Inject;
 import qio.annotate.Property;
@@ -37,19 +37,11 @@ public class ShipmentService {
     ItemRepo itemRepo;
 
     @Inject
-    DesignRepo designRepo;
-
-    @Inject
     BusinessRepo businessRepo;
 
     @Inject
     CartService cartService;
 
-    @Inject
-    AuthService authService;
-
-    @Inject
-    DesignService designService;
 
     public String begin(String businessUri, ResponseData data, HttpServletRequest req) {
         Business business = businessRepo.get(businessUri);
@@ -317,6 +309,8 @@ public class ShipmentService {
                 user.setPassword(Chico.dirty("gigabeat"));
                 userRepo.save(user);
                 storedUsername = userRepo.getSaved();
+            }else{
+                storedUsername = storedPhone;
             }
         }
 

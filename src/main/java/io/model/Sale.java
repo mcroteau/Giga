@@ -1,5 +1,7 @@
 package io.model;
 
+import io.Giga;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -18,7 +20,6 @@ public class Sale {
 
     Cart cart;
 
-    Long applicationFee;
     Long affiliateAmount;
     Long primaryAmount;
 
@@ -94,14 +95,6 @@ public class Sale {
         this.cart = cart;
     }
 
-    public Long getApplicationFee() {
-        return applicationFee;
-    }
-
-    public void setApplicationFee(Long applicationFee) {
-        this.applicationFee = applicationFee;
-    }
-
     public Long getAffiliateAmount() {
         return affiliateAmount;
     }
@@ -161,7 +154,7 @@ public class Sale {
     public String convert(Long v){
         BigDecimal pre = BigDecimal.valueOf(v);
         pre = pre.movePointLeft(2);
-        pre = pre.setScale(3, RoundingMode.HALF_DOWN);
+        pre = pre.setScale(2, RoundingMode.HALF_DOWN);
         String post = pre.toPlainString();
         String[] bits = post.split("\\.");
         String decimal = bits[1];
@@ -169,6 +162,5 @@ public class Sale {
         DecimalFormat dc = new DecimalFormat("###,###");
         String value = dc.format(fat);
         return value.concat(".<span class=\"decimal\">" + decimal + "</span>");
-
     }
 }

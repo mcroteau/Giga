@@ -186,7 +186,6 @@ create table if not exists sales (
 	sales_date bigint default 0,
 	status character varying(250),
 	amount decimal default 0.0,
-	application_fee bigint default 0,
 	affiliate_amount bigint default 0,
 	primary_amount bigint default 0,
     stripe_application_customer_id character varying (250),

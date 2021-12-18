@@ -37,5 +37,4 @@ public class SaleHandler {
         return saleService.getSale(id, businessUri.toLowerCase(), data, req);
     }
 
-
 }
