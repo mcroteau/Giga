@@ -58,7 +58,7 @@ public class GroupService {
             return "[redirect]/home";
         }
 
-        Item item = itemRepo.get(id, business.getId());
+        Item item = groupRepo.get(id, business.getId());
         if(item == null){
             return "[redirect]/" + businessUri;
         }

@@ -120,7 +120,9 @@ public class MaintenanceTest {
         List<String> properties = Arrays.asList(new String[]{ "qio.props" });
         try {
             this.Qio = new Qio.Injector()
-                    .setDevEnv(true)
+                    .setBasic(false)
+                    .setCreateDb(true)
+                    .setDropDb(true)
                     .withContext(new MockServletContext())
                     .withPropertyFiles(properties)
                     .withWebResources(new ArrayList<>())

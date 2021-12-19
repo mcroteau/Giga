@@ -99,7 +99,6 @@ public class StoreTest {
         SaleRepo saleRepo = (SaleRepo) Qio.getElement("salerepo");
         Sale sale = saleRepo.getSaved();
 
-        Assertions.assertEquals(241, sale.getApplicationFee());
         Assertions.assertEquals(4836, sale.getPrimaryAmount());
         Assertions.assertEquals(723, sale.getAffiliateAmount());
     }
@@ -110,7 +109,9 @@ public class StoreTest {
         List<String> properties = Arrays.asList(new String[]{ "qio.props" });
         try {
             this.Qio = new Qio.Injector()
-                    .setDevEnv(true)
+                    .setBasic(false)
+                    .setCreateDb(true)
+                    .setDropDb(true)
                     .withContext(new MockServletContext())
                     .withPropertyFiles(properties)
                     .withWebResources(new ArrayList<>())
