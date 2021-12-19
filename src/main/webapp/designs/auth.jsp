@@ -119,7 +119,6 @@
             </c:if>
         </ul>
         <ul id="settings-menu" class="menu">
-<%--            <li><a href="${pageContext.request.contextPath}/groups/${business.id}"><span>Item Groups</span></a></li>--%>
             <li><a href="${pageContext.request.contextPath}/items/${business.id}"><span>Items</span></a></li>
             <li><a href="${pageContext.request.contextPath}/categories/${business.id}"><span>Categories</span></a></li>
             <li><a href="${pageContext.request.contextPath}/designs/${business.id}"><span>Designs</span></a></li>
