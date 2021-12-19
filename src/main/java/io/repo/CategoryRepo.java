@@ -1,7 +1,7 @@
 package io.repo;
 
 import io.model.Category;
-import io.model.CategoryItem;
+import io.model.ItemCategory;
 import qio.Qio;
 import qio.annotate.DataStore;
 import qio.annotate.Inject;
@@ -81,22 +81,22 @@ public class CategoryRepo {
         return categories;
     }
 
-    public List<CategoryItem> getItemsBusiness(long id){
+    public List<ItemCategory> getItemsBusiness(long id){
         String sql = "select * from category_items where business_id = [+]";
-        List<CategoryItem> categoryItems = (ArrayList) qio.getList(sql, new Object[]{ id }, CategoryItem.class);
-        return categoryItems;
+        List<ItemCategory> itemCategories = (ArrayList) qio.getList(sql, new Object[]{ id }, ItemCategory.class);
+        return itemCategories;
     }
 
-    public List<CategoryItem> getItems(long id){
+    public List<ItemCategory> getItems(long id){
         String sql = "select * from category_items where category_id = [+]";
-        List<CategoryItem> categoryItems = (ArrayList) qio.getList(sql, new Object[]{ id }, CategoryItem.class);
-        return categoryItems;
+        List<ItemCategory> itemCategories = (ArrayList) qio.getList(sql, new Object[]{ id }, ItemCategory.class);
+        return itemCategories;
     }
 
-    public List<CategoryItem> getCategoryItems(long id){
+    public List<ItemCategory> getCategoryItems(long id){
         String sql = "select * from category_items where item_id = [+]";
-        List<CategoryItem> categoryItems = (ArrayList) qio.getList(sql, new Object[]{ id }, CategoryItem.class);
-        return categoryItems;
+        List<ItemCategory> itemCategories = (ArrayList) qio.getList(sql, new Object[]{ id }, ItemCategory.class);
+        return itemCategories;
     }
 
 
@@ -114,12 +114,12 @@ public class CategoryRepo {
         return true;
     }
 
-    public Boolean saveItem(CategoryItem categoryItem){
+    public Boolean saveItem(ItemCategory itemCategory){
         String sql = "insert into category_items (item_id, category_id, business_id) values ([+],[+],[+])";
         qio.save(sql, new Object[] {
-                categoryItem.getItemId(),
-                categoryItem.getCategoryId(),
-                categoryItem.getBusinessId()
+                itemCategory.getItemId(),
+                itemCategory.getCategoryId(),
+                itemCategory.getBusinessId()
         });
         return true;
     }

@@ -2,7 +2,7 @@ package io.model;
 
 public class GroupOption {
     Long id;
-    Long groupId;
+    Long groupModelId;
     String title;
 
     public Long getId() {
@@ -13,12 +13,12 @@ public class GroupOption {
         this.id = id;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public Long getGroupModelId() {
+        return groupModelId;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setGroupModelId(Long groupModelId) {
+        this.groupModelId = groupModelId;
     }
 
     public String getTitle() {

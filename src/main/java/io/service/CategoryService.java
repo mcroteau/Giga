@@ -56,9 +56,9 @@ public class CategoryService {
         }
 
         List<Item> items = new ArrayList<>();
-        List<CategoryItem> categoryItems = itemRepo.getListItems(category.getId(), business.getId());
-        for(CategoryItem categoryItem : categoryItems){
-            Item item = itemRepo.get(categoryItem.getItemId());
+        List<ItemCategory> itemCategories = itemRepo.getListItems(category.getId(), business.getId());
+        for(ItemCategory itemCategory : itemCategories){
+            Item item = itemRepo.get(itemCategory.getItemId());
             items.add(item);
         }
 

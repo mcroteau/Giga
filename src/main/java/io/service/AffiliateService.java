@@ -252,7 +252,7 @@ public class AffiliateService {
 
             List<Item> items = itemRepo.getList(business.getPrimaryId());
             for(Item item: items){
-                List<CategoryItem> categoryItems = categoryRepo.getCategoryItems(item.getId());
+                List<ItemCategory> itemCategories = categoryRepo.getCategoryItems(item.getId());
 
                 Item copiedItem = item;
                 copiedItem.setId(null);
@@ -263,8 +263,8 @@ public class AffiliateService {
                 String itemPermission = Giga.ITEM_MAINTENANCE + savedItem.getId();
                 userRepo.savePermission(savedUser.getId(), itemPermission);
 
-                for(CategoryItem categoryItem : categoryItems){
-                    Category category = categoryRepo.get(categoryItem.getCategoryId());
+                for(ItemCategory itemCategory : itemCategories){
+                    Category category = categoryRepo.get(itemCategory.getCategoryId());
                     Category categoryDos = category;
                     categoryDos.setId(null);
                     categoryDos.setDesignId(savedDesign.getId());
@@ -279,11 +279,11 @@ public class AffiliateService {
                         userRepo.savePermission(savedUser.getId(), categoryPermission);
                     }
 
-                    CategoryItem categoryItemDos = new CategoryItem();
-                    categoryItemDos.setItemId(savedItem.getId());
-                    categoryItemDos.setCategoryId(storedCategory.getId());
-                    categoryItemDos.setBusinessId(business.getId());
-                    categoryRepo.saveItem(categoryItemDos);
+                    ItemCategory itemCategoryDos = new ItemCategory();
+                    itemCategoryDos.setItemId(savedItem.getId());
+                    itemCategoryDos.setCategoryId(storedCategory.getId());
+                    itemCategoryDos.setBusinessId(business.getId());
+                    categoryRepo.saveItem(itemCategoryDos);
                 }
             }
 

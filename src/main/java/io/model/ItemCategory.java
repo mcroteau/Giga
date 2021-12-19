@@ -1,10 +1,10 @@
 package io.model;
 
-public class CategoryItem {
+public class ItemCategory {
 
-    public CategoryItem(){}
+    public ItemCategory(){}
 
-    public CategoryItem(Long itemId, Long categoryId, Long businessId){
+    public ItemCategory(Long itemId, Long categoryId, Long businessId){
         this.itemId = itemId;
         this.categoryId = categoryId;
         this.businessId = businessId;

@@ -5,10 +5,12 @@ import java.math.BigDecimal;
 public class GroupPricing {
     Long id;
     Long groupId;
+    Long groupModelId;
     Long groupPricingOptionId;
     Long groupOptionValueId;
     BigDecimal price;
     BigDecimal quantity;
+    BigDecimal affiliatePrice;
 
     public Long getId() {
         return id;
@@ -16,6 +18,14 @@ public class GroupPricing {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getGroupModelId() {
+        return groupModelId;
+    }
+
+    public void setGroupModelId(Long groupModelId) {
+        this.groupModelId = groupModelId;
     }
 
     public Long getGroupId() {
@@ -56,5 +66,13 @@ public class GroupPricing {
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
+    }
+
+    public BigDecimal getAffiliatePrice() {
+        return affiliatePrice;
+    }
+
+    public void setAffiliatePrice(BigDecimal affiliatePrice) {
+        this.affiliatePrice = affiliatePrice;
     }
 }

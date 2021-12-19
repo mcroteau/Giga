@@ -62,9 +62,9 @@ public class ItemRepo {
         return items;
     }
 
-    public List<CategoryItem> getListItems(long id, long businessId){
+    public List<ItemCategory> getListItems(long id, long businessId){
         String sql = "select * from category_items where category_id = [+] and business_id = [+] order by item_id desc";
-        List<CategoryItem> items = (ArrayList) qio.getList(sql, new Object[]{ id, businessId }, CategoryItem.class);
+        List<ItemCategory> items = (ArrayList) qio.getList(sql, new Object[]{ id, businessId }, ItemCategory.class);
         return items;
     }
 

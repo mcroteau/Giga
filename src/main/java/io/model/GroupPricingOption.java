@@ -1,12 +1,10 @@
 package io.model;
 
-import java.math.BigDecimal;
-
-public class GroupPricingOptions {
+public class GroupPricingOption {
     Long id;
     Long groupId;
+    String quantity;
     String description;
-    BigDecimal price;
 
     public Long getId() {
         return id;
@@ -24,6 +22,14 @@ public class GroupPricingOptions {
         this.groupId = groupId;
     }
 
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -32,11 +38,4 @@ public class GroupPricingOptions {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
 }

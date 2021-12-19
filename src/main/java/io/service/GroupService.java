@@ -58,30 +58,30 @@ public class GroupService {
             return "[redirect]/home";
         }
 
-        Item item = groupRepo.get(id, business.getId());
-        if(item == null){
+        Group group = groupRepo.get(id, business.getId());
+        if(group == null){
             return "[redirect]/" + businessUri;
         }
 
         setData(id, data);
 
-        data.set("item", item);
+        data.set("group", group);
         data.set("business", business);
         data.set("request", req);
         data.set("siteService", siteService);
 
-        return "/pages/item/index.jsp";
+        return "/pages/group/index.jsp";
     }
 
-    public String getItemGroupCatalog(Long id, Long categoryId, String businessUri, ResponseData data, HttpServletRequest req) {
+    public String getGroupGroupCatalog(Long id, Long categoryId, String businessUri, ResponseData data, HttpServletRequest req) {
         System.out.println(id + " : " + categoryId + " : " + businessUri);
         Business business = businessRepo.get(businessUri);
         if(business == null){
             return "[redirect]/home";
         }
 
-        Item item = itemRepo.get(id, business.getId());
-        if(item == null){
+        Group group = groupRepo.get(id, business.getId());
+        if(group == null){
             return "[redirect]/" + businessUri;
         }
 
@@ -92,13 +92,13 @@ public class GroupService {
 
         setData(id, data);
 
-        data.set("item", item);
+        data.set("group", group);
         data.set("category", category);
         data.set("business", business);
         data.set("request", req);
         data.set("siteService", siteService);
 
-        return "/pages/item/index.jsp";
+        return "/pages/group/index.jsp";
     }
 
 
@@ -121,7 +121,7 @@ public class GroupService {
         List<Asset> assets = assetRepo.getList(businessId);
         data.set("assets", assets);
 
-        data.set("page", "/pages/item/new.jsp");
+        data.set("page", "/pages/group/new.jsp");
         return "/designs/auth.jsp";
     }
 
@@ -133,7 +133,7 @@ public class GroupService {
 
         User authUser = authService.getUser();
 
-        Item item = (Item) Qio.get(req, Item.class);
+        Group group = (Group) Qio.get(req, Group.class);
 
         List<Part> fileParts = req.getParts()
                 .stream()
@@ -146,28 +146,27 @@ public class GroupService {
             String ext = Giga.getExt(original);
             String name = Giga.getString(9) + "." + ext;
             seaService.send(name, is);
-            item.setImageUri(Giga.OCEAN_ENDPOINT + name);
+            group.setImageUri(Giga.OCEAN_ENDPOINT + name);
         }
 
-        if(item.getImageUri() == null){
-            return "[redirect]/items/new/" + businessId;
+        if(group.getImageUri() == null){
+            return "[redirect]/groups/new/" + businessId;
         }
 
-        item.setAffiliatePrice(item.getPrice());
-        itemRepo.save(item);
-        Item savedItem = itemRepo.getSaved();
+        groupRepo.save(group);
+        Group savedGroup = groupRepo.getSaved();
 
         String[] categories = req.getParameterValues("categories");
         System.out.println("a " + req.getParameterValues("categories") + " : " + categories);
         for(String id : categories){
-            CategoryItem categoryItem = new CategoryItem(savedItem.getId(), Long.valueOf(id.trim()), businessId);
-            categoryRepo.saveItem(categoryItem);
+            GroupCategory categoryGroup = new GroupCategory(savedGroup.getId(), Long.valueOf(id.trim()), businessId);
+            categoryRepo.saveGroup(categoryGroup);
         }
 
-        String permission = Giga.ITEM_MAINTENANCE + savedItem.getId();
+        String permission = Giga.ITEM_MAINTENANCE + savedGroup.getId();
         userRepo.savePermission(authUser.getId(), permission);
 
-        return "[redirect]/items/" + savedItem.getBusinessId();
+        return "[redirect]/groups/" + savedGroup.getBusinessId();
     }
 
     public String list(Long businessId, ResponseData data){
@@ -176,11 +175,11 @@ public class GroupService {
         }
         businessService.setData(businessId, data);
 
-        List<Item> items = itemRepo.getList(businessId);
-        data.set("items", items);
-        data.set("title", "Active Items");
+        List<Group> groups = groupRepo.getList(businessId);
+        data.set("groups", groups);
+        data.set("title", "Active Groups");
         data.set("siteService", siteService);
-        data.set("page", "/pages/item/list.jsp");
+        data.set("page", "/pages/group/list.jsp");
         return "/designs/auth.jsp";
     }
 
@@ -191,11 +190,11 @@ public class GroupService {
         }
         businessService.setData(businessId, data);
 
-        List<Item> items = itemRepo.getList(businessId, false);
-        data.set("items", items);
-        data.set("title", "Inactive Items");
+        List<Group> groups = groupRepo.getList(businessId, false);
+        data.set("groups", groups);
+        data.set("title", "Inactive Groups");
         data.set("siteService", siteService);
-        data.set("page", "/pages/item/list.jsp");
+        data.set("page", "/pages/group/list.jsp");
         return "/designs/auth.jsp";
     }
 
@@ -205,23 +204,23 @@ public class GroupService {
         }
         businessService.setData(businessId, data);
 
-        List<Item> items = itemRepo.getList(businessId);
-        for(Item item : items){
+        List<Group> groups = groupRepo.getList(businessId);
+        for(Group group : groups){
             List<Category> categories = new ArrayList<>();
-            List<CategoryItem> categoryItems = categoryRepo.getCategoryItems(item.getId());
-            for(CategoryItem categoryItem : categoryItems){
-                Category category = categoryRepo.get(categoryItem.getCategoryId());
+            List<CategoryGroup> categoryGroups = categoryRepo.getCategoryGroups(group.getId());
+            for(CategoryGroup categoryGroup : categoryGroups){
+                Category category = categoryRepo.get(categoryGroup.getCategoryId());
                 categories.add(category);
             }
-            item.setCategories(categories);
+            group.setCategories(categories);
         }
         List<Design> designs = designRepo.getList(businessId);
         List<Category> categories = categoryRepo.getListAll(businessId);
         data.set("designs", designs);
         data.set("categories", categories);
-        data.set("items", items);
+        data.set("groups", groups);
         data.set("siteService", siteService);
-        data.set("page", "/pages/item/grid.jsp");
+        data.set("page", "/pages/group/grid.jsp");
         return "/designs/auth.jsp";
     }
 
@@ -233,31 +232,31 @@ public class GroupService {
         String permission = Giga.ITEM_MAINTENANCE + id;
         if(!authService.isAdministrator() &&
                 !authService.hasPermission(permission)){
-            data.set("message", "Unauthorized to edit this item.");
+            data.set("message", "Unauthorized to edit this group.");
             return "[redirect]/";
         }
 
         businessService.setData(businessId, data);
 
-        Item item = itemRepo.get(id);
+        Group group = groupRepo.get(id);
 
-        data.set("item", item);
+        data.set("group", group);
 
         List<Category> categories = categoryRepo.getListAll(businessId);
         data.set("categories", categories);
 
-        List<CategoryItem> categoryItems = categoryRepo.getCategoryItems(item.getId());
+        List<CategoryGroup> categoryGroups = categoryRepo.getCategoryGroups(group.getId());
         List<Category> activeCategories = new ArrayList<>();
-        for(CategoryItem categoryItem : categoryItems){
-            Category category = categoryRepo.get(categoryItem.getCategoryId());
+        for(CategoryGroup categoryGroup : categoryGroups){
+            Category category = categoryRepo.get(categoryGroup.getCategoryId());
             activeCategories.add(category);
         }
         data.set("activeCategories", activeCategories);
 
-        if(categoryItems != null &&
-                categoryItems.size() > 0){
-            CategoryItem categoryItem = categoryItems.get(0);
-            data.set("categoryId", categoryItem.getCategoryId());
+        if(categoryGroups != null &&
+                categoryGroups.size() > 0){
+            CategoryGroup categoryGroup = categoryGroups.get(0);
+            data.set("categoryId", categoryGroup.getCategoryId());
         }
 
         List<Design> designs = designRepo.getList(businessId);
@@ -266,7 +265,7 @@ public class GroupService {
         List<Asset> assets = assetRepo.getList(businessId);
         data.set("assets", assets);
 
-        data.set("page", "/pages/item/edit.jsp");
+        data.set("page", "/pages/group/edit.jsp");
         return "/designs/auth.jsp";
     }
 
@@ -285,7 +284,7 @@ public class GroupService {
             return "[redirect]/";
         }
 
-        Item item = (Item) Qio.get(req, Item.class);
+        Group group = (Group) Qio.get(req, Group.class);
 
         if(req.getParameter("media") != null){
             List<Part> fileParts = req.getParts()
@@ -299,38 +298,38 @@ public class GroupService {
                 String ext = Giga.getExt(original);
                 String name = Giga.getString(9) + "." + ext;
                 seaService.send(name, is);
-                item.setImageUri(Giga.OCEAN_ENDPOINT + name);
+                group.setImageUri(Giga.OCEAN_ENDPOINT + name);
             }
         }
 
-        categoryRepo.deleteCategoryItems(id);
+        categoryRepo.deleteCategoryGroups(id);
 
         String[] categories = req.getParameterValues("categories");
         if(categories != null) {
             System.out.println("a " + req.getParameterValues("categories") + " : " + categories);
             for (String categoryId : categories) {
-                CategoryItem categoryItem = new CategoryItem(item.getId(), Long.valueOf(categoryId.trim()), businessId);
-                categoryRepo.saveItem(categoryItem);
+                CategoryGroup categoryGroup = new CategoryGroup(group.getId(), Long.valueOf(categoryId.trim()), businessId);
+                categoryRepo.saveGroup(categoryGroup);
             }
         }
 
         if(business.getAffiliate() != null &&
                 business.getAffiliate() &&
-                (item.getAffiliatePrice().compareTo(item.getPrice()) == 1)){
+                (group.getAffiliatePrice().compareTo(group.getPrice()) == 1)){
             data.set("message", "Your price may not be lower than the business owners. I get it, you want to buy their products at a lower price. You're a genius. ; )");
             if(onGrid){
-                return "[redirect]/items/grid/" + businessId;
+                return "[redirect]/groups/grid/" + businessId;
             }
-            return "[redirect]/items/edit/" + businessId + "/" + id;
+            return "[redirect]/groups/edit/" + businessId + "/" + id;
         }
 
-        itemRepo.update(item);
-        data.set("message", "Successfully updated item");
+        groupRepo.update(group);
+        data.set("message", "Successfully updated group");
 
         if(onGrid){
-            return "[redirect]/items/grid/" + businessId;
+            return "[redirect]/groups/grid/" + businessId;
         }
-        return "[redirect]/items/edit/" + businessId + "/" + id;
+        return "[redirect]/groups/edit/" + businessId + "/" + id;
     }
 
     public String delete(Long id, Long businessId, ResponseData data) {
@@ -341,20 +340,20 @@ public class GroupService {
         String permission = Giga.ITEM_MAINTENANCE + id;
         if(!authService.isAdministrator() &&
                 !authService.hasPermission(permission)){
-            data.set("message", "Unauthorized to delete this item.");
+            data.set("message", "Unauthorized to delete this group.");
             return "[redirect]/";
         }
 
-        categoryRepo.deleteCategoryItems(id);
-        List<ItemOption> itemOptions = itemRepo.getOptions(id);
-        for(ItemOption itemOption : itemOptions){
-            itemRepo.deleteValues(itemOption.getId());
+        categoryRepo.deleteCategoryGroups(id);
+        List<GroupOption> groupOptions = groupRepo.getOptions(id);
+        for(GroupOption groupOption : groupOptions){
+            groupRepo.deleteValues(groupOption.getId());
         }
-        itemRepo.deleteOptions(id);
-        itemRepo.delete(id);
-        data.set("message", "Successfully deleted item.");
+        groupRepo.deleteOptions(id);
+        groupRepo.delete(id);
+        data.set("message", "Successfully deleted group.");
 
-        return "[redirect]/items/" + businessId;
+        return "[redirect]/groups/" + businessId;
     }
 
     public String options(Long id, Long businessId, ResponseData data) {
@@ -365,14 +364,14 @@ public class GroupService {
         String permission = Giga.ITEM_MAINTENANCE + id;
         if(!authService.isAdministrator() &&
                 !authService.hasPermission(permission)){
-            data.set("message", "Unauthorized to delete this item.");
+            data.set("message", "Unauthorized to delete this group.");
             return "[redirect]/";
         }
 
         setData(id, data);
         businessService.setData(businessId, data);
 
-        data.set("page", "/pages/item/options.jsp");
+        data.set("page", "/pages/group/options.jsp");
         return "/designs/auth.jsp";
     }
 
@@ -384,14 +383,14 @@ public class GroupService {
         String permission = Giga.ITEM_MAINTENANCE + id;
         if(!authService.isAdministrator() &&
                 !authService.hasPermission(permission)){
-            data.set("message", "Unauthorized to delete this item.");
+            data.set("message", "Unauthorized to delete this group.");
             return "[redirect]/";
         }
 
-        ItemOption itemOption = (ItemOption) Qio.get(req, ItemOption.class);
-        itemRepo.saveOption(itemOption);
+        GroupOption groupOption = (GroupOption) Qio.get(req, GroupOption.class);
+        groupRepo.saveOption(groupOption);
 
-        return "[redirect]/items/options/" + businessId + "/" + id;
+        return "[redirect]/groups/options/" + businessId + "/" + id;
     }
 
 
@@ -403,15 +402,15 @@ public class GroupService {
         String permission = Giga.ITEM_MAINTENANCE + id;
         if(!authService.isAdministrator() &&
                 !authService.hasPermission(permission)){
-            data.set("message", "Unauthorized to delete this item.");
+            data.set("message", "Unauthorized to delete this group.");
             return "[redirect]/";
         }
 
         System.out.println("delete option ");
-        itemRepo.deleteValues(optionId);
-        itemRepo.deleteOption(optionId);
+        groupRepo.deleteValues(optionId);
+        groupRepo.deleteOption(optionId);
 
-        return "[redirect]/items/options/" + businessId + "/" + id;
+        return "[redirect]/groups/options/" + businessId + "/" + id;
     }
 
     public String saveValue(Long id, Long businessId, ResponseData data, HttpServletRequest req) {
@@ -422,14 +421,14 @@ public class GroupService {
         String permission = Giga.ITEM_MAINTENANCE + id;
         if(!authService.isAdministrator() &&
                 !authService.hasPermission(permission)){
-            data.set("message", "Unauthorized to delete this item.");
+            data.set("message", "Unauthorized to delete this group.");
             return "[redirect]/";
         }
 
         OptionValue optionValue = (OptionValue) Qio.get(req, OptionValue.class);
-        itemRepo.saveValue(optionValue);
+        groupRepo.saveValue(optionValue);
 
-        return "[redirect]/items/options/" + businessId + "/" + id;
+        return "[redirect]/groups/options/" + businessId + "/" + id;
     }
 
     public String deleteValue(Long id, Long valueId, Long businessId, ResponseData data, HttpServletRequest req) {
@@ -440,28 +439,28 @@ public class GroupService {
         String permission = Giga.ITEM_MAINTENANCE + id;
         if(!authService.isAdministrator() &&
                 !authService.hasPermission(permission)){
-            data.set("message", "Unauthorized to delete this item.");
+            data.set("message", "Unauthorized to delete this group.");
             return "[redirect]/";
         }
 
         System.out.println("delete option value ");
-        itemRepo.deleteValue(valueId);
+        groupRepo.deleteValue(valueId);
 
         setData(id, data);
         businessService.setData(businessId, data);
 
-        return "[redirect]/items/options/" + businessId + "/" + id;
+        return "[redirect]/groups/options/" + businessId + "/" + id;
     }
 
     public void setData(Long id, ResponseData data){
-        Item item = itemRepo.get(id);
-        List<ItemOption> itemOptions = itemRepo.getOptions(item.getId());
-        for(ItemOption itemOption : itemOptions){
-            List<OptionValue> optionValues = itemRepo.getValues(itemOption.getId());
-            itemOption.setOptionValues(optionValues);
+        Group group = groupRepo.get(id);
+        List<GroupOption> groupOptions = groupRepo.getOptions(group.getId());
+        for(GroupOption groupOption : groupOptions){
+            List<OptionValue> optionValues = groupRepo.getValues(groupOption.getId());
+            groupOption.setOptionValues(optionValues);
         }
-        data.set("item", item);
-        data.set("itemOptions", itemOptions);
+        data.set("group", group);
+        data.set("groupOptions", groupOptions);
     }
 
 }

@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 import qio.Qio;
 import qio.annotate.Inject;
-import qio.annotate.Media;
 import qio.annotate.Service;
 import qio.model.web.ResponseData;
 
@@ -247,11 +246,11 @@ public class DataService {
             Category category = categoryRepo.get(mediaImport.getCategoryId());
             if(category == null) category = categoryRepo.getOne(businessId);
 
-            CategoryItem categoryItem = new CategoryItem();
-            categoryItem.setItemId(savedItem.getId());
-            categoryItem.setCategoryId(category.getId());
+            ItemCategory itemCategory = new ItemCategory();
+            itemCategory.setItemId(savedItem.getId());
+            itemCategory.setCategoryId(category.getId());
 
-            categoryRepo.saveItem(categoryItem);
+            categoryRepo.saveItem(itemCategory);
 
             if(category.getCategoryId() != null) {
                 saveGuidanceCategory(savedItem, category);
@@ -266,9 +265,9 @@ public class DataService {
         Category guidanceCategory = categoryRepo.get(category.getCategoryId());
 
         if(guidanceCategory != null) {
-            CategoryItem categoryItem = new CategoryItem();
-            categoryItem.setItemId(savedItem.getId());
-            categoryItem.setCategoryId(guidanceCategory.getId());
+            ItemCategory itemCategory = new ItemCategory();
+            itemCategory.setItemId(savedItem.getId());
+            itemCategory.setCategoryId(guidanceCategory.getId());
 
             if (category.getCategoryId() != null) {
                 saveGuidanceCategory(savedItem, guidanceCategory);

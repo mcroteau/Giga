@@ -13,8 +13,6 @@ import qio.model.web.ResponseData;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -175,8 +173,8 @@ public class ItemService {
         String[] categories = req.getParameterValues("categories");
         System.out.println("a " + req.getParameterValues("categories") + " : " + categories);
         for(String id : categories){
-            CategoryItem categoryItem = new CategoryItem(savedItem.getId(), Long.valueOf(id.trim()), businessId);
-            categoryRepo.saveItem(categoryItem);
+            ItemCategory itemCategory = new ItemCategory(savedItem.getId(), Long.valueOf(id.trim()), businessId);
+            categoryRepo.saveItem(itemCategory);
         }
 
         String permission = Giga.ITEM_MAINTENANCE + savedItem.getId();
@@ -223,9 +221,9 @@ public class ItemService {
         List<Item> items = itemRepo.getList(businessId);
         for(Item item : items){
             List<Category> categories = new ArrayList<>();
-            List<CategoryItem> categoryItems = categoryRepo.getCategoryItems(item.getId());
-            for(CategoryItem categoryItem : categoryItems){
-                Category category = categoryRepo.get(categoryItem.getCategoryId());
+            List<ItemCategory> itemCategories = categoryRepo.getCategoryItems(item.getId());
+            for(ItemCategory itemCategory : itemCategories){
+                Category category = categoryRepo.get(itemCategory.getCategoryId());
                 categories.add(category);
             }
             item.setCategories(categories);
@@ -261,18 +259,18 @@ public class ItemService {
         List<Category> categories = categoryRepo.getListAll(businessId);
         data.set("categories", categories);
 
-        List<CategoryItem> categoryItems = categoryRepo.getCategoryItems(item.getId());
+        List<ItemCategory> itemCategories = categoryRepo.getCategoryItems(item.getId());
         List<Category> activeCategories = new ArrayList<>();
-        for(CategoryItem categoryItem : categoryItems){
-            Category category = categoryRepo.get(categoryItem.getCategoryId());
+        for(ItemCategory itemCategory : itemCategories){
+            Category category = categoryRepo.get(itemCategory.getCategoryId());
             activeCategories.add(category);
         }
         data.set("activeCategories", activeCategories);
 
-        if(categoryItems != null &&
-                categoryItems.size() > 0){
-            CategoryItem categoryItem = categoryItems.get(0);
-            data.set("categoryId", categoryItem.getCategoryId());
+        if(itemCategories != null &&
+                itemCategories.size() > 0){
+            ItemCategory itemCategory = itemCategories.get(0);
+            data.set("categoryId", itemCategory.getCategoryId());
         }
 
         List<Design> designs = designRepo.getList(businessId);
@@ -324,8 +322,8 @@ public class ItemService {
         if(categories != null) {
             System.out.println("a " + req.getParameterValues("categories") + " : " + categories);
             for (String categoryId : categories) {
-                CategoryItem categoryItem = new CategoryItem(item.getId(), Long.valueOf(categoryId.trim()), businessId);
-                categoryRepo.saveItem(categoryItem);
+                ItemCategory itemCategory = new ItemCategory(item.getId(), Long.valueOf(categoryId.trim()), businessId);
+                categoryRepo.saveItem(itemCategory);
             }
         }
 

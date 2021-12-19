@@ -179,14 +179,14 @@ public class StartupService {
             String itemPermission = Giga.ITEM_MAINTENANCE + savedItem.getId();
             userRepo.savePermission(savedIbmUser.getId(), itemPermission);
 
-            CategoryItem categoryItem = new CategoryItem(savedItem.getId(), mensCategory.getId(), savedKopi.getId());
-            categoryRepo.saveItem(categoryItem);
+            ItemCategory itemCategory = new ItemCategory(savedItem.getId(), mensCategory.getId(), savedKopi.getId());
+            categoryRepo.saveItem(itemCategory);
 
-            CategoryItem categoryItemDos = new CategoryItem(savedItem.getId(), clothingCategory.getId(), savedKopi.getId());
-            categoryRepo.saveItem(categoryItemDos);
+            ItemCategory itemCategoryDos = new ItemCategory(savedItem.getId(), clothingCategory.getId(), savedKopi.getId());
+            categoryRepo.saveItem(itemCategoryDos);
 
-            CategoryItem categoryItemTres = new CategoryItem(savedItem.getId(), shoesCategory.getId(), savedKopi.getId());
-            categoryRepo.saveItem(categoryItemTres);
+            ItemCategory itemCategoryTres = new ItemCategory(savedItem.getId(), shoesCategory.getId(), savedKopi.getId());
+            categoryRepo.saveItem(itemCategoryTres);
 
             ItemOption itemOption = new ItemOption();
             itemOption.setItemId(savedItem.getId());
@@ -347,7 +347,7 @@ public class StartupService {
         String itemPermission = Giga.ITEM_MAINTENANCE + savedItem.getId();
         userRepo.savePermission(savedIbmUser.getId(), itemPermission);
 
-        CategoryItem shopItem = new CategoryItem(savedItem.getId(), savedCategory.getId(), savedImDone.getId());
+        ItemCategory shopItem = new ItemCategory(savedItem.getId(), savedCategory.getId(), savedImDone.getId());
         categoryRepo.saveItem(shopItem);
 
 

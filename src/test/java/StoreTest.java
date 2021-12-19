@@ -34,8 +34,8 @@ public class StoreTest {
     @Order(2)
     public void bValidateCategoryItems() {
         CategoryRepo categoryRepo = (CategoryRepo) Qio.getElement("categoryrepo");
-        List<CategoryItem> categoryItems = categoryRepo.getItemsBusiness(savedIkes.getId());
-        Assertions.assertEquals(12, categoryItems.size());
+        List<ItemCategory> itemCategories = categoryRepo.getItemsBusiness(savedIkes.getId());
+        Assertions.assertEquals(12, itemCategories.size());
     }
 
     @Test
@@ -237,29 +237,29 @@ public class StoreTest {
 
             Item savedItem = itemRepo.getSaved();
 
-            CategoryItem categoryItem = new CategoryItem();
-            categoryItem.setBusinessId(savedIoc.getId());
-            categoryItem.setCategoryId(savedShopCategory.getId());
-            categoryItem.setItemId(savedItem.getId());
-            categoryRepo.saveItem(categoryItem);
+            ItemCategory itemCategory = new ItemCategory();
+            itemCategory.setBusinessId(savedIoc.getId());
+            itemCategory.setCategoryId(savedShopCategory.getId());
+            itemCategory.setItemId(savedItem.getId());
+            categoryRepo.saveItem(itemCategory);
 
-            CategoryItem categoryItemDos = new CategoryItem();
-            categoryItemDos.setBusinessId(savedIoc.getId());
-            categoryItemDos.setCategoryId(savedClothingCategory.getId());
-            categoryItemDos.setItemId(savedItem.getId());
-            categoryRepo.saveItem(categoryItemDos);
+            ItemCategory itemCategoryDos = new ItemCategory();
+            itemCategoryDos.setBusinessId(savedIoc.getId());
+            itemCategoryDos.setCategoryId(savedClothingCategory.getId());
+            itemCategoryDos.setItemId(savedItem.getId());
+            categoryRepo.saveItem(itemCategoryDos);
 
-            CategoryItem categoryItemTres = new CategoryItem();
-            categoryItemTres.setBusinessId(savedIoc.getId());
-            categoryItemTres.setCategoryId(savedShoesCategory.getId());
-            categoryItemTres.setItemId(savedItem.getId());
-            categoryRepo.saveItem(categoryItemTres);
+            ItemCategory itemCategoryTres = new ItemCategory();
+            itemCategoryTres.setBusinessId(savedIoc.getId());
+            itemCategoryTres.setCategoryId(savedShoesCategory.getId());
+            itemCategoryTres.setItemId(savedItem.getId());
+            categoryRepo.saveItem(itemCategoryTres);
 
-            CategoryItem categoryItemQuatro = new CategoryItem();
-            categoryItemQuatro.setBusinessId(savedIoc.getId());
-            categoryItemQuatro.setCategoryId(savedMakeupCategory.getId());
-            categoryItemQuatro.setItemId(savedItem.getId());
-            categoryRepo.saveItem(categoryItemQuatro);
+            ItemCategory itemCategoryQuatro = new ItemCategory();
+            itemCategoryQuatro.setBusinessId(savedIoc.getId());
+            itemCategoryQuatro.setCategoryId(savedMakeupCategory.getId());
+            itemCategoryQuatro.setItemId(savedItem.getId());
+            categoryRepo.saveItem(itemCategoryQuatro);
 
         }
 
