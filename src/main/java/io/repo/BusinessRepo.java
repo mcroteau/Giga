@@ -52,7 +52,7 @@ public class BusinessRepo {
     }
 
     public List<Business> getListPrimary(){
-        String sql = "select * from businesses where affiliate = false and allow_affiliates = [+] order by id desc";
+        String sql = "select * from businesses where affiliate = false order by id desc";
         List<Business> businesses = (ArrayList) qio.getList(sql, new Object[]{}, Business.class);
         return businesses;
     }
@@ -87,7 +87,7 @@ public class BusinessRepo {
 
     public Boolean update(Business business){
         String sql = "update businesses set user_id = [+], name = '[+]', phone = '[+]', email = '[+]', " +
-                "stripe_id = '[+]', primary_id = [+], flat_shipping = [+], live = [+], allow_affiliates = [+], " +
+                "stripe_id = '[+]', primary_id = [+], flat_shipping = [+], live = [+], " +
                 "uri = '[+]', street = '[+]', street_dos = '[+]', city = '[+]', state = '[+]', " +
                 "zip = '[+]', country = '[+]', shipping = [+], initial = [+], affiliate = [+], " +
                 "base_commission = [+], activation_complete = [+], owner = '[+]' where id = [+]";
@@ -100,7 +100,6 @@ public class BusinessRepo {
                 business.getPrimaryId(),
                 business.getFlatShipping(),
                 business.getLive(),
-                business.getAllowAffiliates(),
                 business.getUri(),
                 business.getStreet(),
                 business.getStreetDos(),

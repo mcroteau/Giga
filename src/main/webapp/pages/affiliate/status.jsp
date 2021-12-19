@@ -41,12 +41,12 @@
             <c:if test="${businessRequest.denied}">
                 <p class="status remove">We are sorry.</p>
                 <p>We are sorry, but the business owner has decided to do
-                    something different. You can always try again at a different time,
+                    pass for now. You can always try again at a different time,
                     maybe things will be different.</p>
                 <p>Don't get discouraged, persistence and being at your best
                     will pay off! We thank you! Best.</p>
 
-                <p>${user.username} is ${business.name}'s contact email. Apologies.</p>
+                <p>${user.username} is ${business.name}'s contact email. </p>
             </c:if>
         </div>
     </div>

@@ -20,9 +20,8 @@
     <ul class="checklist">
         <li>Celebrate.. right on, <span class="tiny">whoa, who brought the guy from the movie Big, he's not welcome.</span></li>
         <li><a href="${pageContext.request.contextPath}/snapshot/${business.id}">Activate Payment</a>
-            <span class="tiny">A breeze, you just need to enter some business information so you are legal
-            and the rest is Golden.</span></li>
+            <span class="tiny">A breeze, you just need to enter some business information on Stripe.com</span></li>
         <li><a href="${pageContext.request.contextPath}/businesses/settings/${business.id}">Update Business Address</a>
-            <span class="tiny">Used for realtime shipping calculations.</span></li>
+            <span class="tiny">Used for realtime shipping calculations if enabled.</span></li>
     </ul>
 </div>

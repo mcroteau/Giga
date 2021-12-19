@@ -285,13 +285,10 @@ public class ShipmentService {
             return "[redirect]/" + businessUri + "/shipment/create";
         }
 
-        if(!validateAddress(user, business)){
-            data.set("message", "Say what?! Your address is off a bit. Will you try again? Or contact us if the problem persists?");
-            return "[redirect]/" + businessUri + "/shipment/create";
-        }
+
         System.out.println("\n\n\\\\\\\\\\\\\\\\\\\\\\\\");
         System.out.println("user " + user.getBusinessId());
-        System.out.println("\n\n\\\\\\\\\\\\\\\\\\\\\\\\");
+        System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\n\n");
 
         String phone = "";
         if(user.getPhone() != null) phone = Giga.getPhone(user.getPhone());
@@ -326,6 +323,15 @@ public class ShipmentService {
         cart.setShipZip(user.getShipZip());
         cart.setUserId(storedUsername.getId());
         cartRepo.update(cart);
+
+        storedUsername.setName(user.getName());
+        storedUsername.setShipStreet(user.getShipStreet());
+        storedUsername.setShipStreetDos(user.getShipStreetDos());
+        storedUsername.setShipCity(user.getShipCity());
+        storedUsername.setShipState(user.getShipState());
+        storedUsername.setShipCountry(user.getShipCountry());
+        storedUsername.setShipZip(user.getShipZip());
+        userRepo.update(storedUsername);
 
         data.set("message", "Successfully set your address, you're ready to go!");
         return "[redirect]/" + businessUri + "/checkout";

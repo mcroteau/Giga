@@ -1,6 +1,9 @@
 key=
 mail.key=
 
+host=localhost:3000
+#host=yourdomain.com
+
 ### qio settings ###
 qio.env=create
 qio.assets=benefit

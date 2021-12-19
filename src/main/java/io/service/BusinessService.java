@@ -36,6 +36,10 @@ import java.util.Map;
 @Service
 public class BusinessService {
 
+
+    @Property("host")
+    String host;
+
     @Property("stripe.key")
     String stripeKey;
 
@@ -389,12 +393,10 @@ public class BusinessService {
         try {
             Address.createAndVerify(addressHash);
         }catch (com.easypost.exception.EasyPostException e) {
-            data.set("message", "Address aint right! Please make sure you enter a valid business address.");
+            data.set("message", "Address ain't right! Please make sure you enter a valid business address.");
             data.set("page", "/pages/business/settings.jsp");
             return "/designs/auth.jsp";
         }
-
-
 
         business.setInitial(false);
         businessRepo.update(business);
@@ -454,8 +456,8 @@ public class BusinessService {
 
         try {
 
-            String refreshUrl = "http://localhost:3000/stripe/onboarding/refresh";
-            String returnUrl = "http://localhost:3000/stripe/onboarding/complete/" + id;
+            String refreshUrl = "http://" + host + "/stripe/onboarding/refresh";
+            String returnUrl = "http://" + host + "/stripe/onboarding/complete/" + id;
 
             Stripe.apiKey = stripeKey;
 
@@ -504,8 +506,10 @@ public class BusinessService {
         business.setActivationComplete(true);
         businessRepo.update(business);
 
-        data.set("page", "/pages/stripe/complete.jsp");
-        return "/designs/auth.jsp";
+        setData(id, data);
+
+        data.set("message", "Successfully configured your Stripe account! <br/>Congratulations. Good times!");
+        return "[redirect]/snapshot/" + id;
     }
 
     public void setData(Long id, ResponseData data){

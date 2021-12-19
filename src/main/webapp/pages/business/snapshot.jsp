@@ -8,10 +8,15 @@
     .activate{margin-top:30px;}
 </style>
 
+<c:if test="${not empty message}">
+    <p class="notify">${message}</p>
+</c:if>
+
 <c:if test="${!business.activationComplete}">
     <div class="align-center">
+
         <h1 class="large activate">Activate Payments</h1>
-        <h2>Time to Complete : 10 minutes</h2>
+        <h2>Time to Complete : 4 minutes</h2>
 
         <h3 style="margin:20px 0px 0px;">What is Stripe?</h3>
         <p style="width:76%;margin:10px auto 30px" class="align-center" >Stripe is great! Better yet fantastic! They make payments processing very secure. Click

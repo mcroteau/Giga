@@ -78,14 +78,6 @@ public class AffiliateService {
 
     public String getOnboarding(ResponseData data, HttpServletRequest req) {
         List<Business> businesses = businessRepo.getListPrimary();
-        String q = req.getParameter("q");
-        if(q != null && !q.equals("")){
-            Business activeBusiness = businessRepo.get(Long.valueOf(q));
-            data.set("activeBusiness", activeBusiness);
-        }else if(businesses.size() > 0){
-            data.set("activeBusinesses", businesses.get(0));
-        }
-
         data.set("businesses", businesses);
         data.set("title", "Giga! Partners Signup");
         data.set("page", "/pages/affiliate/onboarding.jsp");

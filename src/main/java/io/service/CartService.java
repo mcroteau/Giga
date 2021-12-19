@@ -198,10 +198,16 @@ public class CartService {
             cart.setShipCountry(user.getShipCountry());
             cart.setShipZip(user.getShipZip());
 
-            if(shipmentService.validateAddress(user, business) &&
-                    shipmentService.validateBusinessAddress(business)){
-                cart.setValidAddress(true);
-            }
+            //->
+            // setting to valid address regardless for now.
+            // mail service integration is easy, this is already
+            // setup with one.
+            cart.setValidAddress(true);
+
+//            if(shipmentService.validateAddress(user, business) &&
+//                    shipmentService.validateBusinessAddress(business)){
+//                ///-> mail integration done here.
+//            }
 
             cartRepo.update(cart);
         }

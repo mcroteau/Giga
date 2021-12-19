@@ -35,7 +35,6 @@ public class Business {
     BigDecimal salesTotal;
 
     Boolean live;
-    Boolean allowAffiliates;
 
     public Long getId() {
         return id;
@@ -235,14 +234,6 @@ public class Business {
 
     public void setLive(Boolean live) {
         this.live = live;
-    }
-
-    public Boolean getAllowAffiliates() {
-        return allowAffiliates;
-    }
-
-    public void setAllowAffiliates(Boolean allowAffiliates) {
-        this.allowAffiliates = allowAffiliates;
     }
 
     public String get(String value){

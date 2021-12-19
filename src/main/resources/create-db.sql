@@ -62,7 +62,6 @@ create table if not exists businesses (
 	flat_shipping boolean default true,
 	shipping decimal default 13.0,
 	live boolean default true,
-	allow_affiliates boolean default false,
 	constraint unique_uri unique (uri)
 );
 
