@@ -27,6 +27,12 @@ password :
 
 
 
+### Fixes
+Authenticated user shipment created fix on checkout
+Stripe onboarding complete 
+Affliate Signup
+Cleanup
+
 
 
 ## Release 

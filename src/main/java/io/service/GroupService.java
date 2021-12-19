@@ -13,18 +13,16 @@ import qio.model.web.ResponseData;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ItemService {
+public class GroupService {
 
     @Inject
-    ItemRepo itemRepo;
+    GroupRepo groupRepo;
 
     @Inject
     AssetRepo assetRepo;
@@ -54,20 +52,7 @@ public class ItemService {
     AuthService authService;
 
 
-    public String query(Long id, ResponseData data, HttpServletRequest req){
-        String q = req.getParameter("q");
-        Business business = businessRepo.get(id);
-        List<Item> items = itemRepo.q(q, id);
-        data.set("q", q);
-        data.set("items", items);
-        data.set("siteService", siteService);
-        data.set("business", business);
-        data.set("items", items);
-        data.set("request", req);
-        return "/pages/item/q.jsp";
-    }
-
-    public String getItem(Long id, String businessUri, ResponseData data, HttpServletRequest req) {
+    public String getItemGroup(Long id, String businessUri, ResponseData data, HttpServletRequest req) {
         Business business = businessRepo.get(businessUri);
         if(business == null){
             return "[redirect]/home";
@@ -88,7 +73,7 @@ public class ItemService {
         return "/pages/item/index.jsp";
     }
 
-    public String getItemCategory(Long id, Long categoryId, String businessUri, ResponseData data, HttpServletRequest req) {
+    public String getItemGroupCatalog(Long id, Long categoryId, String businessUri, ResponseData data, HttpServletRequest req) {
         System.out.println(id + " : " + categoryId + " : " + businessUri);
         Business business = businessRepo.get(businessUri);
         if(business == null){

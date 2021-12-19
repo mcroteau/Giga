@@ -41,7 +41,7 @@ public class ItemHandler {
                           @Variable String business,
                           @Variable Long categoryId,
                           @Variable Long id){
-        return itemService.getItemCatalog(id, categoryId, business, data, req);
+        return itemService.getItemCategory(id, categoryId, business, data, req);
     }
 
     @Get("/items/new/{{businessId}}")

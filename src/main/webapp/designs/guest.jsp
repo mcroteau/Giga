@@ -80,6 +80,12 @@
         100% { left: 169px; }
     }
 
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+        40% {transform: translateY(-15px);}
+        60% {transform: translateY(-7px);}
+    }
+
     #guest-menu a{
         color:#000;
         font-size: 23px;
