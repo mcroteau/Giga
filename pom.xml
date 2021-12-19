@@ -4,7 +4,7 @@
 	<groupId>dev.j3ee</groupId>
 	<artifactId>giga</artifactId>
 	<packaging>war</packaging>
-	<version>0.102</version>
+	<version>0.103</version>
 	<name>Giga</name>
 
 	<properties>
